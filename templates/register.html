@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STC Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+
+            
+            height: 100vh;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            width: 100%; /* Ensure the header spans the entire width */
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Center items vertically */
+            max-width: 1200px; /* Maximum width for the content */
+            margin: 0 auto; /* Center the container */
+            padding: 0 1rem; /* Padding on the sides */
+            width: 100%; /* Ensure container takes the full width */
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        header nav a {
+            color: #fff;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        header nav a:hover {
+            background: #444;
+        }
+
+        header .welcome {
+            margin-left: auto;
+            font-style: italic;
+            color: #ccc;
+        }
+        .login-container {
+            background: #fff;
+            padding: 4rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem
+        }
+        .login-container h1 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #333;
+        }
+        .login-container input {
+            width: 22rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .login-container button {
+            width: 24.25rem;
+            padding: 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #555;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: white;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+
+        /* Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="templates/images/logo.webp" alt="company Logo">
+            <nav>
+                <a href="{{ url_for('displayHomePage') }}">Home</a>
+                <a href="{{ url_for('displayLoginPage') }}">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <h1>Register</h1>
+        <form action="{{ url_for('displayRegisterPage') }}" method="POST">
+            <input type="text" name="name" id="name" placeholder="name" required>
+            <input type="email" name="email" placeholder="email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button id='registerbutton' type="submit">Register</button>
+        </form>
+    </div>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sorry this email is already in use</h2>
+            
+            
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2024 STC. All Rights Reserved.</p>
+    </footer>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("registerbutton");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        {% if displayModal %}
+        modal.style.display = "block";
+        {% endif %}
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
